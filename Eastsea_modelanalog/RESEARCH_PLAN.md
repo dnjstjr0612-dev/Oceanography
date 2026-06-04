@@ -271,3 +271,18 @@ ERSSTv5 + ERA5(1941–2023), sliding 25yr 상관:
 - **측정/판정:** Barents→ECS = corr(BHI_NDJ, ECSW_DJF). 다른 HR 모델도 ≈0 → **HR coupled 전반의 bias**(일반성↑,
   강한 결론). 일부 양수 → CESM-HR 특이/모델 의존. (psl≈Z500은 obs 0.80 검증; 모델에서도 확인 예정.)
 - **통과(teleconnection 있음) 모델만** ESGF tos로 SST leg(ECS→EJS, Barents→EJS, NP→EJS, JAS reemergence) 정밀 검증.
+
+---
+
+## 10. (2026-06-04) 종료 상태 — 정지점
+
+> 위 계획(Phase 0–3, 두 입장)은 **실행 완료**. 상세 결과·정지점 지도는 `FINDINGS.md`(§8 현황 지도)·`README.md`.
+
+- **Phase 0/1 (관측):** Decision Gate 0·1 통과 → **H1 채택**(source를 잘못 봤던 것). D1(source) ≫ D0(SST패턴)·persistence.
+- **Phase 3 (CESM-HR):** model-internal + obs-to-model 완료. 모델 source=북태평양(obs 전이 X), 유일 transferable=ECS(+0.168 유의).
+- **Phase 2 (GLORYS OHC) — 실행 후 막다른 길로 종결(§7-5):** 위 §2-3·§3·확장 3의 OHC/SSH 경로를 GLORYS12로 검증.
+  국소 OHC 기억(domain)·유입 OHC 해양 source(D4) **둘 다 비유의** → 동해 여름 SST엔 해양 예측자 없음(봄 장벽이 SST·OHC 동일).
+  ⚠️ 따라서 §2-3 표의 "OHC/SSH (optional)"은 *검토 대상이 아니라 검증 후 배제됨*.
+- **입장 2 일반화:** HighResMIP 6모델 Barents→ECS leg **0/6 유의**(전부 obs +0.28 아래) → HR coupled 전반 경향(suggestive).
+- **산출물:** 통합 노트북 3개 + `paper/fig1–4.png`(논문용, 캡션 `paper/FIGURES.md`) + `scripts/make_paper_figs.py`.
+- **남은 열린 실(아이디어 생기면):** ESGF zg500 wave-train composite(입장 2 정밀 확정) / 다음-겨울 reemergence / HR 다모델 SST leg / 글쓰기.

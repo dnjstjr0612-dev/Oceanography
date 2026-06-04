@@ -265,6 +265,50 @@ OHC → EJS JAS SST (`analyze_ohc_inflow_gate.py`)
 봄 장벽은 SST·OHC에 동일 작용. → **CESM-HR 3D TEMP 다운로드 불필요(게이트 차단).**
 이는 메인 스토리를 강화: 여름 동해 SST의 유일한 예측성 경로는 **원격 대기 ECS source(+0.168 유의)**뿐.
 
+## 7-6. 겨울 순환 family 귀속 — Barents는 노드인가 모드의 proxy인가 (nb4, 2026-06-04)
+
+**동기:** Barents 블로킹은 그 자체로 **AO ↔ Ural/Barents blocking ↔ Siberian High ↔ EAWM ↔ ECS 동풍**으로
+이어지는 겨울 동아시아 순환 사슬의 한 마디다. "Barents 단독 box"로 못 박은 게 적절한가, 아니면 동해 여름 SST
+예측성은 더 넓은 **겨울 순환 모드** 전체에 들어 있고 Barents는 그 한 창(window)일 뿐인가? — *예측 개선*이 아니라
+*귀속(attribution)* 질문으로 검정(공선성·n=27·ECS 병목 때문에 family를 distance에 쌓는 예측개선은 §7-3에서 이미 null).
+
+**자료:** OISST(JAS EJS, n=27, 1994–2020) + ERA5 단기(z500/u10/v10/msl) + CPC AO index.
+predictors(모두 detrend·z): AO(CPC), SHI=SLP(40–60N,80–120E; Gong&Ho), EAWM=−v10(25–40N,115–130E),
+BHI=Z500 Barents, ECSW=−u10 ECS. `scripts/analyze_circulation_family.py`, `fig_circulation_family.png`.
+
+**① 공선성 — 한 모드다:** 최대 |비대각 상관|=0.82(SHI–EAWM), BHI–SHI=+0.55, **BHI–AO=−0.61**. PCA PC1=46%
+(loadings SHI+0.60·EAWM+0.52·BHI+0.52·ECSW+0.25·AO−0.19). → AO/SHI/EAWM/BHI는 **별개 source 4개가 아니라
+한 겨울 동아시아 순환 모드**(AO 음→Siberian High·Barents 고기압 강화). ECS 동풍만 반쯤 독립(타 지수와 |r|<0.27).
+
+**② 단일 신호(95% Fisher CI):** ECSW만 유의(+0.49 [+0.13,+0.73]). AO −0.30, BHI(DJF) +0.25, SHI +0.21,
+EAWM +0.19 — 모두 CI 0 포함. (BHI 신호는 NDJ +0.48에 집중, DJF서 +0.25로 약화.)
+
+**③·④ 노드 vs 모드는 계절 의존(칼날):**
+
+| 계절 | BHI~Y 단순 | r(BHI,Y \| AO,SHI,EAWM) | 판정 |
+|---|---|---|---|
+| NDJ(초겨울) | +0.48 | **+0.35** [−0.07,+0.66] | Barents 노드 잔존 |
+| DJF(한겨울) | +0.25 | **−0.04** [−0.44,+0.37] | family에 흡수(proxy) |
+
+→ **초겨울 Barents=활성 노드, 한겨울=AO/SH/EAWM 모드의 한 창.** PC1(+0.35)은 BHI 단독(+0.25)보다 약간 크나
+`r(PC1,Y|BHI)`는 NDJ +0.19/DJF +0.26로 유의 추가정보 없음. n=27이라 단정 불가, 단 **"Barents 단독"보다 "순환 모드"가
+더 정확한 묘사**임을 시사. (§4의 "Barents⟂북태평양"과 모순 아님 — NP는 다른 태평양 모드, AO/SH/EAWM은 Barents가
+*속한* 같은 대륙-북극 모드.)
+
+**⑤ mediation 반전 (새 실마리):** ECS 동풍 통제 시 SHI/EAWM/BHI는 약해지나(부분 매개) **AO는 오히려 강해진다
+(−0.30 → −0.43)**. → **AO엔 ECS 동풍과 무관한 별도 경로**가 있다(음의 AO → 따뜻한 여름 동해). "모든 게 ECS 동풍
+경유"라는 기존 매개 그림을 부분 보완.
+
+**⑥ 예측은 그대로:** family 더해도 ECS 단독(LOO +0.39)을 *유의하게* 못 넘음 — AO+ECSW +0.46(ΔvsECSW +0.07
+CI[−0.13,+0.28]), full(5) +0.47(Δ +0.08 [−0.16,+0.33]), 모두 0 포함. 다중회귀 R²=0.50/adj-R²=0.38, VIF≤4.5.
+→ **예보 천장은 여전히 ECS 동풍**(§7-3과 일치).
+
+**nb4 결론:** Barents를 고립 source로 못 박지 말고 **AO–Siberian High–EAWM 겨울 순환 모드의 한 창**으로 보는 게
+더 정확하다(특히 한겨울). *예측*엔 ECS 동풍이 여전히 병목이고 family의 추가 효용은 n=27에서 노이즈와 구별 안 됨.
+가장 추적할 가치 있는 건 **AO의 ECS-독립 경로**.
+
+---
+
 ## 8. 연구 현황 지도 — 정지점 (2026-06-03)
 
 > 길 잃지 않게: **무엇이 확립됐고 / 무엇을 검증 후 버렸고(다시 하지 말 것) / 어디서 재개할지.**
@@ -276,6 +320,8 @@ OHC → EJS JAS SST (`analyze_ohc_inflow_gate.py`)
 - **model-analog(obs-to-model):** CESM library가 쓸 수 있는 transferable source는 **ECS 동풍 하나뿐**.
   fig4 source gain: **+ECS +0.168 [+0.02,+0.31] 유의**, +NP 비유의. 천장이 낮은 근본이유 = 모델 wave-train bias.
 - **입장 2 일반화:** HighResMIP 6모델 전부 Barents→ECS leg 비유의(0/6) → HR coupled 전반 경향(§7-4, suggestive).
+- **귀속(nb4, §7-6):** AO/SHI/EAWM/BHI는 **한 겨울 순환 모드**(공선 ≤0.82, PC1 46%). Barents는 그 모드의 한 창
+  (초겨울 노드, 한겨울 proxy). family 더해도 예측은 ECS 단독 못 넘음 — "Barents 단독"보다 "순환 모드"가 정확한 묘사.
 
 ### ❌ 검증 후 배제된 막다른 길 (재시도 불필요)
 - **국소 OHC 기억 domain** (§7-5 변종①): GLORYS OHC0-200m도 SST처럼 여름 붕괴. Δ +0.018 비유의. → CESM 3D TEMP 불필요.
@@ -287,9 +333,12 @@ OHC → EJS JAS SST (`analyze_ohc_inflow_gate.py`)
 1. **입장 2 확정:** ESGF에서 HR 모델별 `zg500` 받아 wave-train composite (GC 속도 차단 우회) → "suggestive→정밀 증명".
 2. **다음-겨울 reemergence:** OHC가 *같은 여름*엔 무익했지만 *다음 겨울* 재부상은 미검(고전 reemergence는 winter-to-winter). 별 연구주제.
 3. **HR 모델 SST leg:** screening 통과 무관하게, ESGF tos로 ECS→EJS·NP→EJS leg를 다모델 비교(해양측 일반화).
-4. **글쓰기:** 위 ✅만으로도 완결된 스토리 — README/FINDINGS 최종화 후 노트/포스터.
+4. **AO의 ECS-독립 경로 (nb4 §7-6 신규):** AO는 ECS 동풍 통제 후에도 동해 여름 SST와 −0.43 → ECS-Ekman과 다른
+   제2 경로가 있음. 고−저 AO 겨울 composite로 **직접 가열(국소 surface heat flux) vs 국소 Ekman**을 분리 검증.
+   (단일 partial 상관은 n=27 suppression 의심 → §7-4 교훈대로 composite가 더 robust.)
+5. **글쓰기:** 위 ✅만으로도 완결된 스토리 — README/FINDINGS 최종화 후 노트/포스터.
 
-→ **현재는 (4) 정지점.** 새 아이디어 생기면 1~3 중 택해 재개.
+→ **현재는 (5) 정지점.** 새 아이디어 생기면 1~4 중 택해 재개.
 
 ---
 
@@ -306,6 +355,22 @@ OHC → EJS JAS SST (`analyze_ohc_inflow_gate.py`)
 | 07 | 모델 북태평양 source | `phase3c_npac_skill` |
 | 08 | lead별 ACC(내부 LOO) | `fig_lead_acc_seasonal` |
 | 09 | **진짜 obs-to-model analog** | `fig_obs2model_lead_acc` |
+| **04(통합)** | **겨울 순환 family 귀속 (nb4, §7-6)** | `fig_circulation_family` |
+
+분석 스크립트: `analyze_circulation_family.py`(공선성·PCA·양방향 partial·mediation·LOO), 노트북 빌더 `_build_nb4.py`.
 
 전처리: `preprocess_cesm_indices/fields/regrid.py`, `download_era5*/cesm_hr_atm.py`.
 캐시: `data/processed/cesm_*.{csv,nc}`.
+
+### 논문용 그림 (`paper/`, plain style·영문 라벨, 캡션 `paper/FIGURES.md`)
+재생성: `python scripts/make_paper_figs.py`
+
+| 그림 | 내용 | 근거 §·스크립트 |
+|---|---|---|
+| `paper/fig1.png` | lead별 ACC: source analog vs persistence, (a)관측 (b)모델 | §4·§5 (lead-acc) |
+| `paper/fig2.png` | 고-Barents 합성 Z500+표면바람 obs/model 2×2 (wave-train bias) | §7-2 (`analyze_wavetrain_full.py`) |
+| `paper/fig3.png` | obs-to-model: ACC + source gain(ΔACC, 95%CI) | §7-3 (`analyze_obs2model_fig4.py`) |
+| `paper/fig4.png` | HighResMIP 6모델 Barents→ECS leg | §7-4 (`make_highresmip_summary.py`) |
+
+### 막다른 길 진단 그림 (본문 §7-5)
+`figures/fig_ohc_gate.png`(국소 OHC), `analyze_ohc_inflow_gate.py`(유입 OHC, 표만) — 둘 다 비유의.

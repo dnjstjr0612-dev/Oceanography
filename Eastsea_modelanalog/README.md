@@ -14,8 +14,10 @@
 스토리는 **완결**(아래). 새 아이디어가 생기면 재개. 자세한 지도는 [FINDINGS §8](FINDINGS.md).
 
 - ✅ **확립:** 관측=Barents 원격 / 모델=북태평양 / model-analog 유일 transferable source=**ECS(+0.168 유의)** / HighResMIP 6모델도 Barents→ECS 약함(입장 2 일반화).
+- ✅ **귀속(nb4):** AO/SHI/EAWM/BHI는 **한 겨울 순환 모드**(공선 ≤0.82, PC1 46%) — Barents는 그 모드의 한 창(초겨울 노드, 한겨울 proxy). 예측 천장은 여전히 ECS 동풍. [FINDINGS §7-6](FINDINGS.md).
 - ❌ **막다른 길(재시도 X):** 국소 OHC 기억, 유입 OHC 해양 source, NP의 obs 전이, Barents를 model-analog에 투입 — 모두 검증 후 비유의.
-- 🔓 **재개 후보:** ESGF `zg500`로 HR 모델 wave-train composite(입장 2 정밀 확정) / 다음-겨울 reemergence / HR 다모델 SST leg / 글쓰기.
+- 🔓 **재개 후보:** **AO의 ECS-독립 경로(nb4 신규: 직접가열 vs Ekman composite)** / ESGF `zg500`로 HR 모델 wave-train composite / 다음-겨울 reemergence / HR 다모델 SST leg / 글쓰기.
+- 📄 **논문용 그림 4개:** [paper/](paper/) (`fig1`–`fig4`, plain·영문, 캡션 [paper/FIGURES.md](paper/FIGURES.md)). 재생성 `python scripts/make_paper_figs.py`.
 
 ---
 
@@ -47,6 +49,7 @@ model-analog: CESM library로 obs 동해 예측 → 쓸 source는 ECS 동풍 하
 | **[notebooks/01_observations.ipynb](notebooks/01_observations.ipynb)** | 관측: 신호(BHI·ECSW)→D1 vs D0 LOO→event→robust→lead 곡선→partial corr→forced 테스트 | `fig_lead_acc_seasonal`, `fig_forced_teleconnection_sliding` |
 | **[notebooks/02_model_diagnosis.ipynb](notebooks/02_model_diagnosis.ipynb)** | 모델: model-internal→teleconnection 진단→북태평양 source→wave-train bias | `fig_wavetrain_full`, `phase3b_source_maps` |
 | **[notebooks/03_model_analog.ipynb](notebooks/03_model_analog.ipynb)** | model-analog: NP obs 검증→obs-to-model source 비교(WIDE/ECS/NP) | `fig_obs2model_sources`, `fig_np_obs_validation` |
+| **[notebooks/04_circulation_family.ipynb](notebooks/04_circulation_family.ipynb)** | 귀속: Barents 노드 vs AO/SH/EAWM 모드(공선성→PCA→양방향 partial→mediation→LOO) | `fig_circulation_family` |
 
 상세 기록(개발 과정)은 `notebooks/archive/` (구 01–09).
 
@@ -70,7 +73,8 @@ ERSSTv5는 PSL HTTP. (CESM SST는 선행 프로젝트 보유.)
 `analyze_forced_teleconnection.py`, `analyze_wavetrain_full.py`, `analyze_np_obs_validation.py`,
 `analyze_obs2model_sources.py`, `analyze_obs2model_fig4.py`(source gain CI), `analyze_cesm_z500_barents.py`,
 `analyze_ohc_gate.py`·`analyze_ohc_inflow_gate.py`(OHC 막다른 길 게이트),
-`screen_highresmip_atm.py`·`make_highresmip_summary.py`(입장 2 일반화).
+`screen_highresmip_atm.py`·`make_highresmip_summary.py`(입장 2 일반화),
+`analyze_circulation_family.py`(nb4 귀속: 공선성·PCA·partial·mediation·LOO; AO는 CPC 자동 다운로드→`data/processed/ao_index_cpc.csv`).
 
 ---
 
